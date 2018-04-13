@@ -8,7 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
         // filename: 'build.js'
-        filename: 'vue-image-viewer.js',
+        filename: 'image-viewer-vue.js',
         library: 'ImageViewer',
         libraryTarget: 'umd',
         umdNamedDefine: true

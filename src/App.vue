@@ -5,11 +5,11 @@
     </div>
 
     <!-- 查看图片 -->
-    <vue-image-viewer 
+    <image-viewer-vue 
         v-if="imageViewerFlag" 
         @closeImageViewer="imageViewerFlag = false" 
         :imgUrlList="imgUrlList">
-    </vue-image-viewer>
+    </image-viewer-vue>
   </div>
 </template>
 

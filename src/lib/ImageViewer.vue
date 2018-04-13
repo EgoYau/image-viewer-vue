@@ -36,7 +36,7 @@
         state: 0 //是否正处于拖拽状态，1表示正在拖拽，0表示释放
     };
     export default {
-        name: 'vue-image-viewer',
+        name: 'image-viewer-vue',
         props: {
             // 图片url数组
             imgUrlList:{
@@ -73,13 +73,11 @@
                 this.spinShow = false;
                 this.imageDivShow = true;
                 this.fixImageSize();
-                debugLog('imageLoadSuccess');
             },
             // 图片加载失败
             imageLoadError: function () {
                 this.spinShow = false;
                 this.imageDivShow = true;
-                debugLog('imageLoadError');
             },
             // 调整图片尺寸
             fixImageSize:function () {
@@ -108,31 +106,26 @@
             },
             // 点击事件
             clickMask: function () {
-                debugLog('clickMask');
                 this.closeSelf();
             },
             clickWrap: function () {
-                debugLog('clickWrap');
                 this.closeSelf();
             },
             clickImageDiv: function () {
-                debugLog('clickImageDiv');
                 this.closeSelf();
             },
             clickImagePhotos: function () {
-                debugLog('clickImagePhotos');
+
             },
             clickImage: function () {
-                debugLog('clickImage');
+                
             },
             // 关闭按钮
             clickCloseIcon: function () {
-                debugLog('clickCloseIcon');
                 this.closeSelf();
             },
             // 左翻页
             leftBtnClick:function () {
-                debugLog('leftBtnClick');
                 let imgUrlList = this.imgUrlList,
                     totalCount = imgUrlList.length;
                 if (this.innerIndex > 0){
@@ -145,7 +138,6 @@
             },
             // 右翻页
             rightBtnClick:function () {
-                debugLog('rightBtnClick');
                 let imgUrlList = this.imgUrlList,
                     totalCount = imgUrlList.length;
                 if (this.innerIndex < totalCount - 1){
@@ -158,12 +150,10 @@
             },
             // 关闭
             closeSelf: function () {
-                debugLog('closeSelf');
                 this.$emit("closeImageViewer");
             },
             // 移动事件
             mousedown:function (event) {
-                debugLog('mousedown - ' + event)
                 //获得偏移的位置以及更改状态
                 let e = this.getEvent(event);
                 position.offsetX = e.offsetX;
@@ -171,7 +161,6 @@
                 position.state = 1;
             },
             mouseup:function (event) {
-                debugLog('mouseup - ' + event)
                 position.state = 0;
             },
             mousemove:function (event) {
@@ -223,25 +212,11 @@
             'index':{
                 handler: function (newValue) {
                     this.innerIndex = Number(newValue);
-                    debugLog('watch -- index :' + newValue)
-                },
-                immediate: true
-            },
-            'imgUrlList':{
-                handler:function (newValue) {
-                    debugLog('watch -- imgUrlList :' + newValue)
-                },
-                immediate: true
-            },
-            'title':{
-                handler:function (newValue) {
-                    debugLog('watch -- title :' + newValue)
                 },
                 immediate: true
             },
             'innerIndex': {
                 handler: function (newValue, oldValue) {
-                    debugLog('watch -- innerIndex :' + newValue + oldValue)
                     let tempValue = Number(newValue),
                         element = this.$refs.imageDiv;
                     if (element && element.style){
@@ -256,12 +231,6 @@
                     this.$set(this._data, 'innerImgUrl', this.imgUrlList[tempValue])
                 },
                 immediate: true
-            },
-            'innerImgUrl': {
-                handler: function (newValue) {
-                    debugLog('watch -- innerImgUrl : ' + newValue)
-                },
-                immediate:true
             }
         }
     }
