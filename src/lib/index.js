@@ -6,4 +6,8 @@ const imgViewer = {
     }
 }
 
+if (typeof window !== 'undefined' && window.Vue) {
+     window.Vue.use(imgViewer); 
+}
+
 export default imgViewer

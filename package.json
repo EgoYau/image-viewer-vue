@@ -1,7 +1,7 @@
 {
     "name": "image-viewer-vue",
-    "description": "A Vue.js project for image viewer",
-    "version": "1.0.3",
+    "description": "A Vue.js project for viewing image",
+    "version": "1.0.4",
     "author": "EgoYau",
     "license": "MIT",
     "private": false,
