@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="height:100%">
     <div class="example">
       <button class="button" @click="imageViewerFlag = true">点击查看图片</button>
     </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
     export default {
         name: 'App',
         data() {

@@ -1,7 +1,7 @@
 {
     "name": "image-viewer-vue",
     "description": "A Vue.js project for viewing image",
-    "version": "1.0.4",
+    "version": "1.0.8",
     "author": "EgoYau",
     "license": "MIT",
     "private": false,
@@ -10,6 +10,10 @@
         "type": "git",
         "url": "https://github.com/EgoYau/image-viewer-vue.git"
     },
+    "keywords":[
+        "vue",
+        "imageViewer"
+    ],  
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
         "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

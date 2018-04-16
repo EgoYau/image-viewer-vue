@@ -3,7 +3,7 @@
         <div class="image-viewer-mask" @click="clickMask()"></div>
         <div class="image-viewer-wrap" @click="clickWrap()">
             <div ref="imageDiv" class="image-div" @click="clickImageDiv()">
-                <Spin size="large" fix v-if="spinShow"></Spin>
+                <!-- <Spin size="large" fix v-if="spinShow"></Spin> -->
                 <div ref="imageDiv"
                      v-show="imageDivShow"
                      class="image-photos"
@@ -46,8 +46,8 @@
             },
             // 当前图片索引
             index:{
-                type: String,
-                default: '0',
+                type: Number,
+                default: 0,
                 required: false
             },
             // 底部文字描述
@@ -280,10 +280,10 @@
                 justify-content: center;
                 position: relative;
                 &:hover > .leftButton {
-                    opacity: 1;
+                    opacity: 0.4;
                 }
                 &:hover > .rightButton {
-                    opacity: 1;
+                    opacity: 0.4;
                 }
                 &:hover > .bottomTitle {
                     opacity: 0.8;
@@ -297,10 +297,10 @@
                     position: absolute;
                     top: -16px;
                     right: -16px;
-                    background-image: url("../assets/cancel.png");
+                    background-image: url("../static/cancel.png");
                     background-repeat: round;
                     &:hover{
-                        background-image: url("../assets/cancel-highlight.png");
+                        background-image: url("../static/cancel-highlight.png");
                     };
                     z-index: 10100;
                     cursor: pointer;
@@ -314,11 +314,14 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     left: 10px;
-                    background-image: url("../assets/left-row-opaque.png");
+                    background-image: url("../static/left-row-opaque.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;
                     cursor: pointer;
+                    &:hover{
+                        opacity: 1;
+                    }
                 }
                 .rightButton{
                     width: 24px;
@@ -329,11 +332,14 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     right: 10px;
-                    background-image: url("../assets/right-row-opaque.png");
+                    background-image: url("../static/right-row-opaque.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;
                     cursor: pointer;
+                    &:hover{
+                        opacity: 1;
+                    }
                 }
                 .bottomTitle{
                     position: absolute;

@@ -3,13 +3,12 @@ var webpack = require('webpack')
 
 module.exports = {
     // entry: './src/main.js',
-    entry: './src/lib/index.js',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        // filename: 'build.js'
         filename: 'image-viewer-vue.js',
-        library: 'ImageViewer',
+        library: 'image-viewer-vue',
         libraryTarget: 'umd',
         umdNamedDefine: true
     },
@@ -68,7 +67,7 @@ module.exports = {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[name].[ext]?[hash]'
+                    name: 'assets/[name].[ext]?[hash]'
                 }
             }
         ]
