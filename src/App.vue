@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="height:100%">
+  <div id="app">
     <div class="example">
       <button class="button" @click="imageViewerFlag = true">点击查看图片</button>
     </div>
@@ -8,7 +8,9 @@
     <image-viewer-vue 
         v-if="imageViewerFlag" 
         @closeImageViewer="imageViewerFlag = false" 
-        :imgUrlList="imgUrlList">
+        :imgUrlList="imgUrlList"
+        :index="currentIndex"
+        :title="title">
     </image-viewer-vue>
   </div>
 </template>
@@ -20,6 +22,8 @@
         data() {
             return {
                 imageViewerFlag: false,
+                currentIndex: 1,
+                title: '美图',
                 imgUrlList: [
                     'https://images.unsplash.com/photo-1448376561459-dbe8868fa34c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=361907f0deaaf183ac4ce6b62551dfb3&auto=format&fit=crop&w=900&q=60',
                     'https://images.unsplash.com/photo-1514251972625-326e3dd06f0a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a4edd9f3c0c127ee76b85c44a7731bee&auto=format&fit=crop&w=900&q=60',
@@ -32,16 +36,24 @@
 </script>
 
 <style>
+    html {
+        height: 100%;
+    }
+    body {
+        height: 100%;
+        margin: 0;
+    }
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        margin-top: 60px;
+        height: 100%;
     }
 
     .example {
+        padding-top: 100px;
         text-align: center;
     }
 

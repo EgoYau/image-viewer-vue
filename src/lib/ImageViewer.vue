@@ -297,10 +297,10 @@
                     position: absolute;
                     top: -16px;
                     right: -16px;
-                    background-image: url("../static/cancel.png");
+                    background-image: url("~/src/assets/cancel.png");
                     background-repeat: round;
                     &:hover{
-                        background-image: url("../static/cancel-highlight.png");
+                        background-image: url("~/src/assets/cancel-highlight.png");
                     };
                     z-index: 10100;
                     cursor: pointer;
@@ -314,7 +314,7 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     left: 10px;
-                    background-image: url("../static/left-row-opaque.png");
+                    background-image: url("~/src/assets/left-row-opaque.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;
@@ -332,7 +332,7 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     right: 10px;
-                    background-image: url("../static/right-row-opaque.png");
+                    background-image: url("~/src/assets/right-row-opaque.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;

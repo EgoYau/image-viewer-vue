@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import imageViewer from './index.js'
+import imageViewer from './lib/index.js'
 
 Vue.config.productionTip = false
 Vue.use(imageViewer)

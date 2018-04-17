@@ -15,7 +15,7 @@ import imageViewer from 'image-viewer-vue'
 Vue.use(imageViewer)
 ```
 
-2. how to use in template
+2. how to use
 
 ```
 <template>
@@ -47,12 +47,12 @@ Vue.use(imageViewer)
 ## Props
 | Name | Type | Required | Description | Default |
 | :- | :- | :- | :- | :- | 
-| imgUrlList | Array| true | image url list | [] |
-| index | Number| false | Which image to show first | '0' |
-| title | String| false | the image title | '图片' |
+| `imgUrlList` | `Array`| `true` | image url list | `[]` |
+| `index` | `Number`| `false` | Which image to show first | `0` |
+| `title` | `String`| `false` | the image title | `'图片'` |
 
 ## Methods
 | Name | Description |
 | :- | :- | 
-| closeImageViewer | the callback for closing imageViewer | 
+| `closeImageViewer` | the callback for closing imageViewer | 
 
