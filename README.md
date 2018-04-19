@@ -1,5 +1,5 @@
 # image-viewer-vue
-[![NPM version](https://img.shields.io/npm/v/image-viewer-vue.svg)](https://www.npmjs.org/package/image-viewer-vue) [![Build Status](https://travis-ci.org/EgoYau/image-viewer-vue.svg?branch=master)](https://travis-ci.org/EgoYau/image-viewer-vue) [![Coverage Status](https://coveralls.io/repos/github/EgoYau/image-viewer-vue/badge.svg?branch=master)](https://coveralls.io/github/EgoYau/image-viewer-vue?branch=master)
+[![NPM version](https://img.shields.io/npm/v/image-viewer-vue.svg)](https://www.npmjs.org/package/image-viewer-vue) [![Build Status](https://travis-ci.org/EgoYau/image-viewer-vue.svg?branch=master)](https://travis-ci.org/EgoYau/image-viewer-vue)
 > A Vue.js project for viewing image
 
 ## install
