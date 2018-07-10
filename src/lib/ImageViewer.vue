@@ -297,10 +297,14 @@
                     position: absolute;
                     top: -16px;
                     right: -16px;
-                    background-image: url("~/src/assets/cancel.png");
+                    // background-image: url("~/src/assets/img-viewer-cancel.png");
+                    background-image: url("../assets/img-viewer-cancel.png");
+                    // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
                     background-repeat: round;
                     &:hover{
-                        background-image: url("~/src/assets/cancel-highlight.png");
+                        // background-image: url("~/src/assets/img-viewer-cancel-highlight.png");
+                        background-image: url("../assets/img-viewer-cancel-highlight.png");
+                        // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
                     };
                     z-index: 10100;
                     cursor: pointer;
@@ -314,7 +318,9 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     left: 10px;
-                    background-image: url("~/src/assets/left-row-opaque.png");
+                    // background-image: url("~/src/assets/img-viewer-left-row-opaque.png");
+                    background-image: url("../assets/img-viewer-left-row-opaque.png");
+                    // background-image: url("http://pic.yupoo.com/egoyau/f6ff4d04/d6473e37.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;
@@ -332,7 +338,9 @@
                     margin-top: auto;
                     margin-bottom: auto;
                     right: 10px;
-                    background-image: url("~/src/assets/right-row-opaque.png");
+                    // background-image: url("~/src/assets/img-viewer-right-row-opaque.png");
+                    background-image: url("../assets/img-viewer-right-row-opaque.png");
+                    // background-image: url("http://pic.yupoo.com/egoyau/125de508/dcb2f86d.png");
                     background-repeat: round;
                     opacity: 0.0;
                     z-index: 10100;
