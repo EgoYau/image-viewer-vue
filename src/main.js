@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import imageViewer from './lib/index.js'
+import './assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(imageViewer)

@@ -67,7 +67,16 @@ module.exports = {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'assets/[name].[ext]?[hash]'
+                    limit: 10000,
+                    name: 'assets/img/[name].[ext]?[hash]'
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: 'assets/fonts/[name].[ext]?[hash]'
                 }
             }
         ]

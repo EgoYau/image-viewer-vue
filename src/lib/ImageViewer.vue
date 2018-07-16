@@ -19,10 +19,22 @@
                          @mousedown="mousedown"
                          @mousemove="mousemove"
                          @mouseup="mouseup">
-                    <span class="cancelButton" @click.stop="closeSelf()"></span>
-                    <span class="leftButton" ref="leftButton" @click.stop="leftBtnClick()"></span>
-                    <span class="rightButton" ref="rightButton" @click.stop="rightBtnClick()"></span>
-                    <span class="bottomTitle" @click.stop="clickImage()">{{innerTitle}}</span>
+                    <span class="cancelButton iconfont"
+                        :class="{'icon-guanbi': !cancelButtonHighlight, 'icon-guanbi-highlight': cancelButtonHighlight}" 
+                        @click.stop="closeSelf()"
+                        @mouseenter="cancelButtonHighlight = true"
+                        @mouseleave="cancelButtonHighlight = false">
+                    </span>
+                    <span class="leftButton iconfont icon-zuojiantou" 
+                        @click.stop="leftBtnClick()">
+                    </span>
+                    <span class="rightButton iconfont icon-youjiantou" 
+                        @click.stop="rightBtnClick()">
+                    </span>
+                    <span class="bottomTitle" 
+                        @click.stop="clickImage()">
+                        {{innerTitle}}
+                    </span>
                 </div>
             </div>
         </div>
@@ -39,48 +51,49 @@
         name: 'image-viewer-vue',
         props: {
             // 图片url数组
-            imgUrlList:{
+            imgUrlList: {
                 type: Array,
                 default: [],
                 required: true
             },
             // 当前图片索引
-            index:{
+            index: {
                 type: Number,
                 default: 0,
                 required: false
             },
             // 底部文字描述
-            title:{
+            title: {
                 type: String,
                 default: '图片',
                 required: false
             }
         },
-        data () {
+        data() {
             return {
                 // 内部变量
                 innerIndex: 0,
                 innerImgUrl: '',
                 innerTitle: '',
                 spinShow: true,
-                imageDivShow: false
+                imageDivShow: false,
+                cancelButtonHighlight: false
             }
         },
         methods: {
             // 图片加载完成
-            imageLoadSuccess: function () {
+            imageLoadSuccess: function() {
                 this.spinShow = false;
                 this.imageDivShow = true;
                 this.fixImageSize();
             },
             // 图片加载失败
-            imageLoadError: function () {
+            imageLoadError: function() {
                 this.spinShow = false;
                 this.imageDivShow = true;
             },
             // 调整图片尺寸
-            fixImageSize:function () {
+            fixImageSize: function() {
                 let imageDom = this.$refs.imagePhoto;
                 imageDom.width = imageDom.naturalWidth;
                 imageDom.height = imageDom.naturalHeight;
@@ -90,13 +103,13 @@
                     maxHeight = document.body.clientHeight,
                     widthRate = width / maxWidth,
                     heightRate = height / maxHeight;
-                if (widthRate >= 0.9 || heightRate >= 0.9){
-                    if (widthRate >= heightRate){
+                if (widthRate >= 0.9 || heightRate >= 0.9) {
+                    if (widthRate >= heightRate) {
                         let tempRate = width / (maxWidth * 3 / 4);
                         width = maxWidth * 3 / 4;
                         imageDom.width = width;
                         imageDom.height = height / tempRate;
-                    }else{
+                    } else {
                         let tempRate = height / (maxHeight * 3 / 4);
                         height = maxHeight * 3 / 4;
                         imageDom.width = (width / tempRate);
@@ -105,78 +118,86 @@
                 }
             },
             // 点击事件
-            clickMask: function () {
+            clickMask: function() {
                 this.closeSelf();
             },
-            clickWrap: function () {
+            clickWrap: function() {
                 this.closeSelf();
             },
-            clickImageDiv: function () {
+            clickImageDiv: function() {
                 this.closeSelf();
             },
-            clickImagePhotos: function () {
+            clickImagePhotos: function() {
 
             },
-            clickImage: function () {
-                
+            clickImage: function() {
+
             },
             // 关闭按钮
-            clickCloseIcon: function () {
+            clickCloseIcon: function() {
                 this.closeSelf();
             },
             // 左翻页
-            leftBtnClick:function () {
+            leftBtnClick: function() {
                 let imgUrlList = this.imgUrlList,
                     totalCount = imgUrlList.length;
-                if (this.innerIndex > 0){
-                    this.innerIndex --;
-                }else{
+                if (this.innerIndex > 0) {
+                    this.innerIndex--;
+                } else {
                     // this.innerIndex = imgUrlList.length - 1;
                     this.innerIndex = 0
                 }
                 this.innerImgUrl = imgUrlList[this.innerIndex];
             },
             // 右翻页
-            rightBtnClick:function () {
+            rightBtnClick: function() {
                 let imgUrlList = this.imgUrlList,
                     totalCount = imgUrlList.length;
-                if (this.innerIndex < totalCount - 1){
-                    this.innerIndex ++;
-                }else{
+                if (this.innerIndex < totalCount - 1) {
+                    this.innerIndex++;
+                } else {
                     // this.innerIndex = 0;
                     this.innerIndex = imgUrlList.length - 1
                 }
                 this.innerImgUrl = imgUrlList[this.innerIndex];
             },
             // 关闭
-            closeSelf: function () {
+            closeSelf: function() {
+                this.reset();
                 this.$emit("closeImageViewer");
             },
+            // 重置
+            reset: function() {
+                this.position = {
+                    offsetX: 0, //点击处偏移元素的X
+                    offsetY: 0, //偏移Y值
+                    state: 0 //是否正处于拖拽状态，1表示正在拖拽，0表示释放
+                };
+            },
             // 移动事件
-            mousedown:function (event) {
+            mousedown: function(event) {
                 //获得偏移的位置以及更改状态
                 let e = this.getEvent(event);
                 position.offsetX = e.offsetX;
                 position.offsetY = e.offsetY;
                 position.state = 1;
             },
-            mouseup:function (event) {
+            mouseup: function(event) {
                 position.state = 0;
             },
-            mousemove:function (event) {
+            mousemove: function(event) {
                 var e = this.getEvent(event);
                 if (position.state) {
                     position.endX = e.clientX;
                     position.endY = e.clientY;
                     //设置绝对位置在文档中，鼠标当前位置-开始拖拽时的偏移位置
                     let element = this.$refs.imageDiv;
-//                    element.style.position = 'absolute';
                     element.style.top = position.endY - position.offsetY + 'px';
                     element.style.left = position.endX - position.offsetX + 'px';
                 }
             },
             // 鼠标滚轮事件
-            mouseWheelScroll(e){
+            mouseWheelScroll(e) {
                 let imageDiv = this.$refs.imageDiv,
                     image = this.$refs.imagePhoto,
                     width = image.width,
@@ -189,9 +210,9 @@
                         imgW = width * 1.025;
                         imgH = height * 1.025;
                     }
-                }else{
+                } else {
                     // 缩小 滚轮上滑
-                    if (width > 300){
+                    if (width > 300) {
                         imgW = width * 0.975;
                         imgH = height * 0.975;
                     }
@@ -200,26 +221,32 @@
                 image.width = Math.round(imgW);
                 var offsetLeft = (imageDiv.offsetLeft),
                     offsetTop = (imageDiv.offsetTop);
-                imageDiv.style.left = ''+(offsetLeft - (imgW - width) / 2)+'px';
-                imageDiv.style.top = ''+(offsetTop - (imgH - height) / 2)+'px';
+                imageDiv.style.left = '' + (offsetLeft - (imgW - width) / 2) + 'px';
+                imageDiv.style.top = '' + (offsetTop - (imgH - height) / 2) + 'px';
             },
-            getEvent:function (event) {
+            getEvent: function(event) {
                 return event || window.event;
             }
         },
         // watch方法有先后顺序
         watch: {
-            'index':{
-                handler: function (newValue) {
+            'index': {
+                handler: function(newValue) {
                     this.innerIndex = Number(newValue);
                 },
                 immediate: true
             },
+            'cancelButtonHighlight': {
+                handler: function(newValue) {
+                    console.log('cancelButtonHighlight = ' + newValue)
+                },
+                immediate: true
+            },  
             'innerIndex': {
-                handler: function (newValue, oldValue) {
+                handler: function(newValue, oldValue) {
                     let tempValue = Number(newValue),
                         element = this.$refs.imageDiv;
-                    if (element && element.style){
+                    if (element && element.style) {
                         element.style.top = '';
                         element.style.left = '';
                     }
@@ -237,7 +264,11 @@
 </script>
 
 <style rel="stylesheet/scss" scoped lang="scss" type="text/css">
-    .image-container{
+    .icon-guanbi, .icon-guanbi-highlight{
+        font-size: 32px;
+    }
+
+    .image-container {
         position: fixed;
         z-index: 10000;
         top: 0;
@@ -248,6 +279,7 @@
         height: 100%;
         width: 100%;
     }
+
     .image-viewer-mask {
         position: fixed;
         z-index: 10000;
@@ -258,6 +290,7 @@
         background-color: rgba(55, 55, 55, .6);
         height: 100%;
     }
+
     .image-viewer-wrap {
         position: fixed;
         overflow: auto;
@@ -270,7 +303,7 @@
         align-items: center;
         justify-content: center;
         .image-div {
-            text-align: center; 
+            text-align: center;
             margin: auto;
             position: absolute;
             background-color: #fff;
@@ -279,84 +312,79 @@
                 align-items: center;
                 justify-content: center;
                 position: relative;
-                &:hover > .leftButton {
+                &:hover>.leftButton {
                     opacity: 0.4;
                 }
-                &:hover > .rightButton {
+                &:hover>.rightButton {
                     opacity: 0.4;
                 }
-                &:hover > .bottomTitle {
+                &:hover>.bottomTitle {
                     opacity: 0.8;
                 }
-                .imgContent{
+                .imgContent {
                     cursor: move;
                 }
-                .cancelButton{
+                .cancelButton {
                     width: 32px;
                     height: 32px;
                     position: absolute;
                     top: -16px;
-                    right: -16px;
-                    // background-image: url("~/src/assets/img-viewer-cancel.png");
-                    background-image: url("../assets/img-viewer-cancel.png");
-                    // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
-                    background-repeat: round;
-                    &:hover{
+                    right: -16px; // background-image: url("~/src/assets/img-viewer-cancel.png");
+                    // background-image: url("../assets/img-viewer-cancel.png"); // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
+                    // background-repeat: repeat;
+                    // &:hover {
                         // background-image: url("~/src/assets/img-viewer-cancel-highlight.png");
-                        background-image: url("../assets/img-viewer-cancel-highlight.png");
-                        // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
+                        // background-image: url("../assets/img-viewer-cancel-highlight.png"); // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
+                    // };
+                    background: url(../assets/img-viewer-cancel.png) repeat;
+                    &:hover {
+                        background: url(../assets/img-viewer-cancel-highlight.png) repeat;
                     };
                     z-index: 10100;
                     cursor: pointer;
                 }
-                .leftButton{
-                    width: 24px;
+                .leftButton {
                     height: 68px;
                     position: absolute;
                     top: 0;
                     bottom: 0;
                     margin-top: auto;
                     margin-bottom: auto;
-                    left: 10px;
-                    // background-image: url("~/src/assets/img-viewer-left-row-opaque.png");
-                    background-image: url("../assets/img-viewer-left-row-opaque.png");
-                    // background-image: url("http://pic.yupoo.com/egoyau/f6ff4d04/d6473e37.png");
-                    background-repeat: round;
+                    left: 0; 
+                    background-repeat: repeat;
                     opacity: 0.0;
                     z-index: 10100;
+                    font-size: 68px;
                     cursor: pointer;
-                    &:hover{
+                    &:hover {
                         opacity: 1;
                     }
                 }
-                .rightButton{
-                    width: 24px;
+                .rightButton {
                     height: 68px;
                     position: absolute;
                     top: 0;
                     bottom: 0;
                     margin-top: auto;
                     margin-bottom: auto;
-                    right: 10px;
-                    // background-image: url("~/src/assets/img-viewer-right-row-opaque.png");
-                    background-image: url("../assets/img-viewer-right-row-opaque.png");
-                    // background-image: url("http://pic.yupoo.com/egoyau/125de508/dcb2f86d.png");
-                    background-repeat: round;
+                    right: 0; 
+                    background-repeat: repeat;
                     opacity: 0.0;
                     z-index: 10100;
+                    font-size: 68px;
                     cursor: pointer;
-                    &:hover{
+                    &:hover {
                         opacity: 1;
                     }
                 }
-                .bottomTitle{
+                .bottomTitle {
                     position: absolute;
                     left: 0;
                     bottom: 0;
                     width: 100%;
                     height: 32px;
                     line-height: 32px;
-                    background-color: rgba(0,0,0,.8);
+                    background-color: rgba(0, 0, 0, .8);
                     color: #fff;
                     overflow: hidden;
                     font-size: 12px;
