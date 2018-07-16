@@ -1,4 +1,5 @@
 import imageViewer from './ImageViewer.vue'
+import '../assets/iconfont/iconfont.css'
 
 const imgViewer = {
     install(Vue, options) {
