@@ -1,18 +1,18 @@
 <template id="ImageViewer">
     <div ref="imageContainer" class="image-container">
-        <div class="image-viewer-mask" @click="clickMask()"></div>
+        <!-- <div class="image-viewer-mask" @click="clickMask()"></div> -->
         <div class="image-viewer-wrap" @click="clickWrap()">
-            <div ref="imageDiv" class="image-div" @click="clickImageDiv()">
-                <!-- <Spin size="large" fix v-if="spinShow"></Spin> -->
+            <div ref="imageDiv" class="image-div" @click.stop="clickImageDiv">
+                <Spin size="large" fix v-if="spinShow"></Spin>
                 <div ref="imageDiv"
                      v-show="imageDivShow"
                      class="image-photos"
-                     @click="clickImagePhotos()"
                      @mousewheel="mouseWheelScroll($event)">
                     <img class="imgContent"
                          draggable="false"
                          :src="innerImgUrl"
                          ref="imagePhoto"
+                         :alt="alt"
                          @click.stop="clickImage()"
                          @load="imageLoadSuccess()"
                          @error="imageLoadError()"
@@ -20,15 +20,16 @@
                          @mousemove="mousemove"
                          @mouseup="mouseup">
                     <span class="cancelButton iconfont"
-                        :class="{'icon-guanbi': !cancelButtonHighlight, 'icon-guanbi-highlight': cancelButtonHighlight}" 
                         @click.stop="closeSelf()"
                         @mouseenter="cancelButtonHighlight = true"
                         @mouseleave="cancelButtonHighlight = false">
                     </span>
                     <span class="leftButton iconfont icon-zuojiantou" 
+                        v-if="showArrow"
                         @click.stop="leftBtnClick()">
                     </span>
                     <span class="rightButton iconfont icon-youjiantou" 
+                        v-if="showArrow"
                         @click.stop="rightBtnClick()">
                     </span>
                     <span class="bottomTitle" 
@@ -56,6 +57,12 @@
                 default: [],
                 required: true
             },
+            // 图片alt描述
+            alt: {
+                type: String,
+                default: '图片',
+                required: false
+            },
             // 当前图片索引
             index: {
                 type: Number,
@@ -67,6 +74,18 @@
                 type: String,
                 default: '图片',
                 required: false
+            },
+            // 点击空白处是否可关闭
+            closable: {
+                type: Boolean,
+                default: true,
+                required: false
+            },
+            // 是否可循环浏览图片
+            cyclical: {
+                type: Boolean,
+                default: true,
+                required: false
             }
         },
         data() {
@@ -75,6 +94,8 @@
                 innerIndex: 0,
                 innerImgUrl: '',
                 innerTitle: '',
+                isLoadError: false,
+                showArrow: false,
                 spinShow: true,
                 imageDivShow: false,
                 cancelButtonHighlight: false
@@ -83,20 +104,23 @@
         methods: {
             // 图片加载完成
             imageLoadSuccess: function() {
-                this.spinShow = false;
-                this.imageDivShow = true;
                 this.fixImageSize();
+                this.spinShow = false;
+                this.isLoadError = false;
+                this.imageDivShow = true;
             },
             // 图片加载失败
             imageLoadError: function() {
+                this.fixImageSize();
                 this.spinShow = false;
+                this.isLoadError = true;
                 this.imageDivShow = true;
             },
             // 调整图片尺寸
             fixImageSize: function() {
                 let imageDom = this.$refs.imagePhoto;
-                imageDom.width = imageDom.naturalWidth;
-                imageDom.height = imageDom.naturalHeight;
+                imageDom.width = imageDom.naturalWidth || 300;
+                imageDom.height = imageDom.naturalHeight || 300;
                 let width = imageDom.width,
                     height = imageDom.height,
                     maxWidth = document.body.clientWidth,
@@ -118,20 +142,22 @@
                 }
             },
             // 点击事件
-            clickMask: function() {
-                this.closeSelf();
-            },
+            // clickMask: function() {
+            //     if (this.closable){
+            //         this.closeSelf();
+            //     }
+            //     console.log('clickMask')
+            // },
             clickWrap: function() {
-                this.closeSelf();
+                if (this.closable){
+                    this.closeSelf();
+                }
             },
-            clickImageDiv: function() {
-                this.closeSelf();
-            },
-            clickImagePhotos: function() {
+            clickImageDiv: function(){
 
             },
             clickImage: function() {
-
+                this.$emit("clickImage", this.innerIndex);
             },
             // 关闭按钮
             clickCloseIcon: function() {
@@ -144,8 +170,11 @@
                 if (this.innerIndex > 0) {
                     this.innerIndex--;
                 } else {
-                    // this.innerIndex = imgUrlList.length - 1;
-                    this.innerIndex = 0
+                    if (this.cyclical){
+                        this.innerIndex = imgUrlList.length - 1;
+                    }else{
+                        this.innerIndex = 0
+                    }
                 }
                 this.innerImgUrl = imgUrlList[this.innerIndex];
             },
@@ -156,8 +185,11 @@
                 if (this.innerIndex < totalCount - 1) {
                     this.innerIndex++;
                 } else {
-                    // this.innerIndex = 0;
-                    this.innerIndex = imgUrlList.length - 1
+                    if (this.cyclical){
+                        this.innerIndex = 0;
+                    }else{
+                        this.innerIndex = imgUrlList.length - 1;
+                    }
                 }
                 this.innerImgUrl = imgUrlList[this.innerIndex];
             },
@@ -252,7 +284,6 @@
                     }
                     tempValue < 0 && (tempValue = 0)
                     tempValue > this.imgUrlList.length && (tempValue = this.imgUrlList.length - 1)
-                    this.imageDivShow = false;
                     this.spinShow = true;
                     this.innerTitle = this.title + ' ' + (tempValue + 1) + '/' + this.imgUrlList.length
                     this.$set(this._data, 'innerImgUrl', this.imgUrlList[tempValue])
@@ -329,16 +360,17 @@
                     height: 32px;
                     position: absolute;
                     top: -16px;
-                    right: -16px; // background-image: url("~/src/assets/img-viewer-cancel.png");
+                    right: -16px; 
+                    // background-image: url("~/src/assets/img-viewer-cancel.png");
                     // background-image: url("../assets/img-viewer-cancel.png"); // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
                     // background-repeat: repeat;
                     // &:hover {
                         // background-image: url("~/src/assets/img-viewer-cancel-highlight.png");
                         // background-image: url("../assets/img-viewer-cancel-highlight.png"); // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
                     // };
-                    background: url(../assets/img-viewer-cancel.png) repeat;
+                    background: url(../assets/img-viewer-cancel.png) round;
                     &:hover {
-                        background: url(../assets/img-viewer-cancel-highlight.png) repeat;
+                        background: url(../assets/img-viewer-cancel-highlight.png) round;
                     };
                     z-index: 10100;
                     cursor: pointer;

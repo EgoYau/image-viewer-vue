@@ -1,9 +1,20 @@
 var path = require('path')
 var webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+// the path(s) that should be cleaned
+let pathsToClean = [
+    'dist'
+]
+// the clean options to use
+let cleanOptions = {
+    root: __dirname,
+    verbose: true,
+    dry: false
+}
 
 module.exports = {
-    // entry: './src/main.js',
-    entry: './src/lib/index.js',
+    entry: './src/main.js',
+    // entry: './src/lib/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
@@ -64,6 +75,12 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.html$/,
+                use: {
+                    loader: 'html-loader'
+                }
+            },
+            {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
@@ -107,6 +124,7 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
+        new CleanWebpackPlugin(pathsToClean, cleanOptions),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             compress: {

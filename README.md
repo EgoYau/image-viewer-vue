@@ -24,9 +24,12 @@ Vue.use(imageViewer)
     <image-viewer-vue 
         v-if="imageViewerFlag" 
         @closeImageViewer="imageViewerFlag = false" 
+        @clickImage="clickImage"
         :imgUrlList="imgUrlList"
         :index="currentIndex"
-        :title="title">
+        :title="title"
+        :closable=true
+        :cyclical=false>
     </image-viewer-vue>
   </div>
 </template>
@@ -39,6 +42,11 @@ Vue.use(imageViewer)
                 title: '图片',
                 imgUrlList: ['url1','url2','url3']
             }
+        },
+        methods:{
+            clickImage: function(index){
+                console.log(index)
+            }
         }
     }
 </script>
@@ -48,11 +56,15 @@ Vue.use(imageViewer)
 | Name | Type | Required | Description | Default |
 | :- | :- | :- | :- | :- | 
 | `imgUrlList` | `Array`| `true` | image url list | `[]` |
-| `index` | `Number`| `false` | Which image to show first | `0` |
-| `title` | `String`| `false` | the image title | `'图片'` |
+| `index` | `Number`| `false` | which image to show first | `0` |
+| `title` | `String`| `false` | image's title | `'图片'` |
+| `alt` | `String`| `false` | the property of img tag | `'图片'` |
+| `closable` | `Boolean`| `false` | the imageViewer will close when clicked blank | `true` |
+| `cyclical` | `Boolean`| `false` | browse pictures can be repeated | `true` |
 
 ## Methods
-| Name | Description |
-| :- | :- | 
-| `closeImageViewer` | the callback for closing imageViewer | 
+| Name | Description | Params |
+| :- | :- | :- | 
+| `closeImageViewer` | the callback for closing imageViewer | null |
+| `clickImage` | the callback for clicking the image | the index for the image which clicked |
 
