@@ -14,7 +14,13 @@
     "vue",
     "image",
     "viewer",
-    "image-viewer"
+    "image-viewer",
+    "imageViewer",
+    "viewImage",
+    "browse",
+    "image-browse",
+    "imageBrowse",
+    "browseImage"
   ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
