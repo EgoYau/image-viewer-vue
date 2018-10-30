@@ -43,6 +43,8 @@
 </template>
 
 <script>
+    import '../assets/iconfont/iconfont.css'
+    import '../assets/scss/main.scss'
     let position = {
         offsetX: 0, //点击处偏移元素的X
         offsetY: 0, //偏移Y值
@@ -119,8 +121,8 @@
             // 调整图片尺寸
             fixImageSize: function() {
                 let imageDom = this.$refs.imagePhoto;
-                imageDom.width = imageDom.naturalWidth || 300;
-                imageDom.height = imageDom.naturalHeight || 300;
+                imageDom.width = imageDom.naturalWidth || 400;
+                imageDom.height = imageDom.naturalHeight || 400;
                 let width = imageDom.width,
                     height = imageDom.height,
                     maxWidth = document.body.clientWidth,
@@ -276,6 +278,7 @@
             },  
             'innerIndex': {
                 handler: function(newValue, oldValue) {
+                    this.showArrow = this.imgUrlList.length > 1
                     let tempValue = Number(newValue),
                         element = this.$refs.imageDiv;
                     if (element && element.style) {
@@ -294,137 +297,6 @@
     }
 </script>
 
-<style rel="stylesheet/scss" scoped lang="scss" type="text/css">
-    .icon-guanbi, .icon-guanbi-highlight{
-        font-size: 32px;
-    }
-
-    .image-container {
-        position: fixed;
-        z-index: 10000;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(55, 55, 55, .6);
-        height: 100%;
-        width: 100%;
-    }
-
-    .image-viewer-mask {
-        position: fixed;
-        z-index: 10000;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(55, 55, 55, .6);
-        height: 100%;
-    }
-
-    .image-viewer-wrap {
-        position: fixed;
-        overflow: auto;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .image-div {
-            text-align: center;
-            margin: auto;
-            position: absolute;
-            background-color: #fff;
-            .image-photos {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                &:hover>.leftButton {
-                    opacity: 0.4;
-                }
-                &:hover>.rightButton {
-                    opacity: 0.4;
-                }
-                &:hover>.bottomTitle {
-                    opacity: 0.8;
-                }
-                .imgContent {
-                    cursor: move;
-                }
-                .cancelButton {
-                    width: 32px;
-                    height: 32px;
-                    position: absolute;
-                    top: -16px;
-                    right: -16px; 
-                    // background-image: url("~/src/assets/img-viewer-cancel.png");
-                    // background-image: url("../assets/img-viewer-cancel.png"); // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
-                    // background-repeat: repeat;
-                    // &:hover {
-                        // background-image: url("~/src/assets/img-viewer-cancel-highlight.png");
-                        // background-image: url("../assets/img-viewer-cancel-highlight.png"); // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
-                    // };
-                    background: url(../assets/img-viewer-cancel.png) round;
-                    &:hover {
-                        background: url(../assets/img-viewer-cancel-highlight.png) round;
-                    };
-                    z-index: 10100;
-                    cursor: pointer;
-                }
-                .leftButton {
-                    height: 68px;
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    margin-top: auto;
-                    margin-bottom: auto;
-                    left: 0; 
-                    background-repeat: repeat;
-                    opacity: 0.0;
-                    z-index: 10100;
-                    font-size: 68px;
-                    cursor: pointer;
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
-                .rightButton {
-                    height: 68px;
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    margin-top: auto;
-                    margin-bottom: auto;
-                    right: 0; 
-                    background-repeat: repeat;
-                    opacity: 0.0;
-                    z-index: 10100;
-                    font-size: 68px;
-                    cursor: pointer;
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
-                .bottomTitle {
-                    position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    width: 100%;
-                    height: 32px;
-                    line-height: 32px;
-                    background-color: rgba(0, 0, 0, .8);
-                    color: #fff;
-                    overflow: hidden;
-                    font-size: 12px;
-                    text-align: center;
-                    opacity: 0.0;
-                    z-index: 10100;
-                }
-            }
-        }
-    }
-</style>
+<!-- <style rel="stylesheet/scss" scoped lang="scss" type="text/css">
+    
+</style> -->

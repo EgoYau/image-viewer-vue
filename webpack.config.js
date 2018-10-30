@@ -13,8 +13,8 @@ let cleanOptions = {
 }
 
 module.exports = {
-    // entry: './src/main.js',
-    entry: './src/lib/index.js',
+    // entry: './src/main.js', // 开发路径
+    entry: './src/lib/index.js', // 发布路径
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
@@ -82,7 +82,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
+                loader: 'url-loader',
                 options: {
                     limit: 10000,
                     name: 'assets/img/[name].[ext]?[hash]'
