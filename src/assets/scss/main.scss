@@ -64,15 +64,7 @@
                 position: absolute;
                 top: -16px;
                 right: -16px; 
-                // background-image: url("~/src/assets/img-viewer-cancel.png");
-                // background-image: url("../assets/img-viewer-cancel.png"); // background-image: url("http://pic.yupoo.com/egoyau/06e9d044/ceb79eab.png");
-                // background-repeat: repeat;
-                // &:hover {
-                    // background-image: url("~/src/assets/img-viewer-cancel-highlight.png");
-                    // background-image: url("../assets/img-viewer-cancel-highlight.png"); // background-image: url("http://pic.yupoo.com/egoyau/db696d17/8db141cc.png");
-                // };
-                // background: url(../../assets/img/img-viewer-cancel.png) round;
-                background: url(../../assets/img/logo.png) round;
+                background: url(../../assets/img/img-viewer-cancel.png) round;
                 &:hover {
                     background: url(../../assets/img/img-viewer-cancel-highlight.png) round;
                 };
