@@ -9,6 +9,8 @@
         v-if="imageViewerFlag" 
         @closeImageViewer="imageViewerFlag = false" 
         @clickImage="clickImage"
+        @imageLoadError="imageLoadError"
+        @imageLoadSuccess="imageLoadSuccess"
         :imgUrlList="imgUrlList"
         :closable=true
         :cyclical=false>
@@ -36,6 +38,12 @@
         methods:{
             clickImage: function(index){
                 console.log(index)
+            },
+            imageLoadError: function(index){
+                console.log('imageLoadError'+index)
+            },
+            imageLoadSuccess: function(index){
+                console.log('imageLoadSuccess'+index)
             }
         }
     }

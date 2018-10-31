@@ -1,6 +1,7 @@
 # image-viewer-vue
 [![NPM version](https://img.shields.io/npm/v/image-viewer-vue.svg)](https://www.npmjs.org/package/image-viewer-vue) [![Build Status](https://travis-ci.org/EgoYau/image-viewer-vue.svg?branch=master)](https://travis-ci.org/EgoYau/image-viewer-vue)
 > A Vue.js project for viewing image
+> Depend on Spin of iview
 
 # install
 ```
@@ -8,14 +9,14 @@ npm install image-viewer-vue --save
 ```
 
 # Usage
-1. import in main.js
+1、 import in main.js
 
 ```
 import imageViewer from 'image-viewer-vue'
 Vue.use(imageViewer)
 ```
 
-2. how to use
+2、 how to use
 
 ```
 <template>
@@ -67,4 +68,5 @@ Vue.use(imageViewer)
 | :- | :- | :- | 
 | `closeImageViewer` | the callback for closing imageViewer | null |
 | `clickImage` | the callback for clicking the image | the index for the image which clicked |
-
+| `imageLoadSuccess` | the callback for loading success | the index for the image which loaded success |
+| `imageLoadError` | the callback for loading error | the index for the image which loaded error |
