@@ -1,22 +1,24 @@
 # image-viewer-vue
 [![NPM version](https://img.shields.io/npm/v/image-viewer-vue.svg)](https://www.npmjs.org/package/image-viewer-vue) [![Build Status](https://travis-ci.org/EgoYau/image-viewer-vue.svg?branch=master)](https://travis-ci.org/EgoYau/image-viewer-vue)
 > A Vue.js project for viewing image
-> Depend on Spin of iview
 
-# install
+# Getting Started
+
+## Installing
 ```
 npm install image-viewer-vue --save
 ```
+> Depend on 'Spin' of iview, please install iview in your project, and you can load components on demand
 
-# Usage
-1、 import in main.js
+## Usage
++ import in main.js
 
 ```
 import imageViewer from 'image-viewer-vue'
 Vue.use(imageViewer)
 ```
 
-2、 how to use
++ example
 
 ```
 <template>
@@ -52,7 +54,6 @@ Vue.use(imageViewer)
     }
 </script>
 ```
-
 # Props
 | Name | Type | Required | Description | Default |
 | :- | :- | :- | :- | :- | 
@@ -70,3 +71,8 @@ Vue.use(imageViewer)
 | `clickImage` | the callback for clicking the image | the index for the image which clicked |
 | `imageLoadSuccess` | the callback for loading success | the index for the image which loaded success |
 | `imageLoadError` | the callback for loading error | the index for the image which loaded error |
+
+# Built With
++ [vue](https://cn.vuejs.org)
++ [iview](https://www.iviewui.com)
+

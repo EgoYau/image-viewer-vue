@@ -4,7 +4,6 @@
             <div ref="imageDiv" class="image-div" @click.stop="clickImageDiv">
                 <Spin size="large" fix v-if="spinShow"></Spin>
                 <div ref="imageDiv"
-                     v-show="imageDivShow"
                      class="image-photos"
                      @mousewheel="mouseWheelScroll($event)">
                     <img class="imgContent"
@@ -97,7 +96,6 @@
                 isLoadError: false,
                 showArrow: false,
                 spinShow: true,
-                imageDivShow: false,
                 cancelButtonHighlight: false
             }
         },
@@ -107,7 +105,6 @@
                 this.fixImageSize();
                 this.spinShow = false;
                 this.isLoadError = false;
-                this.imageDivShow = true;
                 this.$emit('imageLoadSuccess', this.innerIndex)
             },
             // 图片加载失败
@@ -115,7 +112,6 @@
                 this.fixImageSize();
                 this.spinShow = false;
                 this.isLoadError = true;
-                this.imageDivShow = true;
                 this.$emit('imageLoadError', this.innerIndex)
             },
             // 调整图片尺寸
@@ -256,6 +252,10 @@
                 return event || window.event;
             }
         },
+        mounted (){
+            this.showArrow = this.imgUrlList.length > 1;
+            this.fixImageSize();
+        },
         // watch方法有先后顺序
         watch: {
             'index': {
@@ -272,7 +272,6 @@
             },  
             'innerIndex': {
                 handler: function(newValue, oldValue) {
-                    this.showArrow = this.imgUrlList.length > 1
                     let tempValue = Number(newValue),
                         element = this.$refs.imageDiv;
                     if (element && element.style) {
