@@ -137,6 +137,18 @@
                         imageDom.width = (width / tempRate);
                         imageDom.height = height;
                     }
+                }else if (widthRate <= 0.3 || heightRate <= 0.3){
+                    if (widthRate >= heightRate){
+                        let tempRate = maxWidth * 3 / 4 / width;
+                        width = maxWidth * 3 / 4;
+                        imageDom.width = width;
+                        imageDom.height = height * tempRate;
+                    }else{
+                        let tempRate = maxHeight * 3 / 4 / height;
+                        height = maxHeight * 3 / 4;
+                        imageDom.width = width * tempRate;
+                        imageDom.height = height;
+                    }
                 }
             },
             // 点击事件
